@@ -1,7 +1,7 @@
 // Time Complexity : O(n*n)
 // Space Complexity : O(n)
-// Did this code successfully run on Leetcode :
-// Any problem you faced while coding this :
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : yes, compilation errors
 
 class Solution {
     public List<String> removeInvalidParentheses(String s) {
@@ -62,3 +62,59 @@ class Solution {
     }
 }
 // Your code here along with comments explaining your approach
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> neighbors;
+    public Node() {
+        val = 0;
+        neighbors = new ArrayList<Node>();
+    }
+    public Node(int _val) {
+        val = _val;
+        neighbors = new ArrayList<Node>();
+    }
+    public Node(int _val, ArrayList<Node> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+}
+*/
+// Time Complexity : O(n)
+// Space Complexity : O(n)
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : yes, compilation errors
+
+class Solution {
+    HashMap<Node, Node> map;
+    public Node cloneGraph(Node node) {
+        if(node==null) return node;
+        Queue<Node> q = new LinkedList<>();
+        map= new HashMap<>();
+        
+        q.add(node);
+        Node copyNode = cloneNode(node);
+        while(!q.isEmpty())
+        {
+            Node curr = q.poll();
+            for(Node ne: curr.neighbors)
+            {
+                if(!map.containsKey(ne))
+                {
+                    q.add(ne);
+                }
+                map.get(curr).neighbors.add(cloneNode(ne));
+            }
+        }
+        return copyNode;
+    }
+    private Node cloneNode(Node node)
+    {
+        if(!map.containsKey(node))
+        {
+            map.put(node, new Node(node.val));
+        }
+        return map.get(node);
+    }
+}
